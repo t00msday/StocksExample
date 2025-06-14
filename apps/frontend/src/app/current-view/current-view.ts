@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {Stockchart} from '../stockchart/stockchart';
 
 @Component({
   selector: 'app-current-view',
-  imports: [],
+  imports: [
+    Stockchart
+  ],
   templateUrl: './current-view.html',
   styleUrl: './current-view.sass'
 })
