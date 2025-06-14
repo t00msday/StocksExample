@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FINNHUB_TOKEN } from './credentials';
 import { FinnhubSubscriptionCommand } from './finnhub-commands';
 import { HttpService } from '@nestjs/axios';
+import { targetStocksSymbols } from '../stock-config';
 
 const baseUrl = 'http://finnhub.io/api/v1/';
 
@@ -33,7 +34,9 @@ export class FinnhubConnectionService {
 
   private onWSOpened() {
     console.log('Finnhub Connection opened');
-    const cmd: FinnhubSubscriptionCommand = new FinnhubSubscriptionCommand('MSF');
-    this.ws.send(JSON.stringify(cmd));
+    for (const stock of targetStocksSymbols) {
+      const cmd: FinnhubSubscriptionCommand = new FinnhubSubscriptionCommand( stock );
+      this.ws.send(JSON.stringify(cmd));
+    }
   }
 }
