@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@stocksexample/shared": ["libs/shared/src"]
+    }
+  }
+}
