@@ -4,6 +4,7 @@ import { FinnhubSubscriptionCommand } from './finnhub-commands';
 import { HttpService } from '@nestjs/axios';
 import { targetStocksSymbols } from '../stock-config';
 import { AxiosResponse } from 'axios';
+import { FinnhubMarketStatusDto } from './finnhub-market-status-dto';
 
 const baseUrl = 'http://finnhub.io/api/v1/';
 
@@ -11,10 +12,12 @@ const baseUrl = 'http://finnhub.io/api/v1/';
 export class FinnhubConnectionService {
 
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`)
-
+  private marketsOpen = false;
 
   constructor(private readonly httpService: HttpService) {
-    if (this.isMarketOpen()) void this.initWebsocketUpdates();
+    this.updateMarketStatus();
+    setInterval(() => this.updateMarketStatus(), 60000); // check every minute if markets are open
+    this.initWebsocketUpdates(); //subscribe to updates for selected stocks
   }
 
   private async initWebsocketUpdates() {
@@ -34,15 +37,16 @@ export class FinnhubConnectionService {
     return 'Hello World!';
   }
 
-  private isMarketOpen(): boolean {
+  private updateMarketStatus() {
     this.httpService
       .get(`${baseUrl}stock/market-status?exchange=US`, {
         headers: { 'X-Finnhub-Token': `${FINNHUB_TOKEN}` },
       })
-      .subscribe((value) => {
+      .subscribe((value: AxiosResponse<FinnhubMarketStatusDto>) => {
         console.log(value);
+        this.marketsOpen = value.data.isOpen;
       });
-    return true;
+
   }
 
   private onWSOpened() {
@@ -52,4 +56,6 @@ export class FinnhubConnectionService {
       this.ws.send(JSON.stringify(cmd));
     }
   }
+
+
 }
