@@ -1,8 +1,28 @@
 
 <main class="main">
 
-  <div>nothing to see here</div>
-  <router-outlet />
+  <button mat-button>Some</button>
+
+  <nav mat-tab-nav-bar  [tabPanel]="tabPanel">
+    <a mat-tab-link
+       routerLinkActive #rla="routerLinkActive"
+       [active] = rla.isActive
+       [active] = false
+       [routerLink]="['/current']">
+      Current
+    </a>
+    <a mat-tab-link
+      routerLinkActive #rlas="routerLinkActive"
+      [active] = rlas.isActive
+      [routerLink]="['/average']">
+      Average
+    </a>
+  </nav>
+
+  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+  <router-outlet></router-outlet>
+
+
 </main>
 
 

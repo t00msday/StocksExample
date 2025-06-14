@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatButtonModule} from '@angular/material/button'
 
-import {Stockchart} from './stockchart/stockchart';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Stockchart],
+  imports: [RouterOutlet,RouterLink,RouterLinkActive,  MatTabsModule, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.sass'
 })
