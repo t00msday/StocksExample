@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { FinnhubConnectionService } from './stockproviders/finnhub/finnhub-connection.service';
 
 @Module({
   imports: [],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [FinnhubConnectionService],
 })
 export class AppModule {}
