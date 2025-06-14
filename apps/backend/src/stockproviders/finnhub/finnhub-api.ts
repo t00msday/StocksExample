@@ -1,10 +1,10 @@
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
+import { FinnhubMarketStatusDTO } from './dto/finnhub-market-status-d-t-o';
 import { map } from 'rxjs';
 import { FinnhubQuoteDTO } from './dto/finnhub-quote-dto';
 
-const baseUrl = 'http://finnhub.io/api/v1/';
+const baseUrl = 'https://finnhub.io/api/v1/';
 
 export class FinnhubApi {
   constructor(
@@ -22,7 +22,7 @@ export class FinnhubApi {
 
   marketsOpen() {
     return this.apiRequest('stock/market-status?exchange=US').pipe(
-      map((response: AxiosResponse<FinnhubMarketStatusDto>) => {
+      map((response: AxiosResponse<FinnhubMarketStatusDTO>) => {
         return response.data;
       }),
     );

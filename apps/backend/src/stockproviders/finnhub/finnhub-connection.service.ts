@@ -4,7 +4,7 @@ import { FinnhubSubscriptionCommand } from './dto/finnhub-commands';
 import { HttpService } from '@nestjs/axios';
 import { targetStocksSymbols } from '../stock-config';
 import { AxiosResponse } from 'axios';
-import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
+import { FinnhubMarketStatusDTO } from './dto/finnhub-market-status-d-t-o';
 import { FinnhubApi } from './finnhub-api';
 
 @Injectable()
@@ -19,7 +19,6 @@ export class FinnhubConnectionService {
     this.updateStocks();
     setInterval(() => this.updateMarketStatus(), 60000); // check every minute if markets are open
     this.initWebsocketUpdates(); //subscribe to updates for selected stocks
-    this.getCurrentValues();
   }
 
   private async initWebsocketUpdates() {
@@ -40,7 +39,7 @@ export class FinnhubConnectionService {
   }
 
   private updateMarketStatus() {
-    this.finnhubAPI.marketsOpen().subscribe((value: FinnhubMarketStatusDto) => {
+    this.finnhubAPI.marketsOpen().subscribe((value: FinnhubMarketStatusDTO) => {
       console.log(value);
       this.marketsOpen = value.isOpen;
     });
@@ -56,11 +55,11 @@ export class FinnhubConnectionService {
     }
   }
 
-  private getCurrentValues() {}
-
   private updateStocks() {
     for (const stock of targetStocksSymbols) {
-      this.finnhubAPI.quoteForStock(stock).subscribe();
+      this.finnhubAPI.quoteForStock(stock).subscribe((value) => {
+        console.log(value);
+      });
     }
   }
 }
