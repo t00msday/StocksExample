@@ -3,6 +3,7 @@ import { FINNHUB_TOKEN } from './credentials';
 import { FinnhubSubscriptionCommand } from './finnhub-commands';
 import { HttpService } from '@nestjs/axios';
 import { targetStocksSymbols } from '../stock-config';
+import { AxiosResponse } from 'axios';
 
 const baseUrl = 'http://finnhub.io/api/v1/';
 
@@ -11,8 +12,9 @@ export class FinnhubConnectionService {
 
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`)
 
+
   constructor(private readonly httpService: HttpService) {
-    void this.initWebsocketUpdates();
+    if (this.isMarketOpen()) void this.initWebsocketUpdates();
   }
 
   private async initWebsocketUpdates() {
@@ -30,6 +32,17 @@ export class FinnhubConnectionService {
 
   getHello(): string {
     return 'Hello World!';
+  }
+
+  private isMarketOpen(): boolean {
+    this.httpService
+      .get(`${baseUrl}stock/market-status?exchange=US`, {
+        headers: { 'X-Finnhub-Token': `${FINNHUB_TOKEN}` },
+      })
+      .subscribe((value) => {
+        console.log(value);
+      });
+    return true;
   }
 
   private onWSOpened() {
