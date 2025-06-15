@@ -1,8 +1,11 @@
 
 <main class="main">
 
-
-  <nav mat-tab-nav-bar  [tabPanel]="tabPanel">
+<div class="mainGrid">
+  <div class="title">
+    <h1 > Stockprice Monitor</h1>
+  </div>
+  <nav mat-tab-nav-bar  [tabPanel]="tabPanel" class="tabBar" >
     <a mat-tab-link
        routerLinkActive #rla="routerLinkActive"
        [active] = rla.isActive
@@ -14,13 +17,15 @@
       routerLinkActive #rlas="routerLinkActive"
       [active] = rlas.isActive
       [routerLink]="['/average']">
-      Average
+      Average over 15min
     </a>
   </nav>
 
-  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
-  <router-outlet></router-outlet>
-
+  <mat-tab-nav-panel #tabPanel class="tabBar"></mat-tab-nav-panel>
+  <div class="mainContent">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 
 </main>
 
