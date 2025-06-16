@@ -40,7 +40,7 @@ export class FinnhubStockService {
 
   private updateStocks() {
     for (const stock of targetStocksSymbols) {
-      this.finnhubAPI.quoteForStock(stock).subscribe((value) => {
+      this.finnhubAPI.quoteForStock(stock.symbol).subscribe((value) => {
         console.log(value);
       });
     }
