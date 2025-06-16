@@ -2,12 +2,14 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { routes } from './app.routes';
+import {provideHttpClient} from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideCharts(withDefaultRegisterables()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient()
   ]
 };
