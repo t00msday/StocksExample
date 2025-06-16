@@ -5,6 +5,8 @@
   <div class="title">
     <h1 > Stockprice Monitor</h1>
   </div>
+  <!-- Material Tabs as navigation while still using routeroutlet/ routes -->
+  <!--https://material.angular.dev/components/tabs/overview#tabs-and-navigation-->
   <nav mat-tab-nav-bar  [tabPanel]="tabPanel" class="tabBar" >
     <a mat-tab-link
        routerLinkActive #rla="routerLinkActive"
@@ -20,11 +22,12 @@
       Average over 15min
     </a>
   </nav>
-
   <mat-tab-nav-panel #tabPanel class="tabBar"></mat-tab-nav-panel>
   <div class="mainContent">
     <router-outlet></router-outlet>
   </div>
+  <div class="selectionMenu"></div>
+
 </div>
 
 </main>
