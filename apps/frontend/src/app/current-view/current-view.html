@@ -1,4 +1,4 @@
 <div>
   <div> Current Stock Prices</div>
-  <app-stockchart></app-stockchart>
+  <app-stockchart [stockData]="(currentData$ | async)!"></app-stockchart>
 </div>
