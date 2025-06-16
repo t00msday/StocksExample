@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
+import {IChartDataSet} from './chart-data-set';
 
 @Component({
   selector: 'app-stockchart',
@@ -9,11 +10,11 @@ import { BaseChartDirective } from 'ng2-charts';
 })
 export class Stockchart {
 
+  @Input() stockData:Array<IChartDataSet>= new Array<IChartDataSet>();
 
-  public stockData: any =
+  protected chartsData: any =
     {
-      datasets: [{
-        data: [{x: '2016-12-25', y: 20}, {x: '2016-12-26', y: 10}]
-      }]};
+      datasets: this.stockData
+    };
 
 }
