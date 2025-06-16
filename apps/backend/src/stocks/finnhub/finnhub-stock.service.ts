@@ -6,6 +6,7 @@ import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
 import { IStockPriceProviderService } from '../i-stock-price-provider-service';
 import { StockID } from '@stocksexample/shared/dist/StockID';
+import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
 
 const UPDATE_INTERVAL_MS: number = 30000;
 
@@ -14,7 +15,7 @@ export class FinnhubStockService extends IStockPriceProviderService {
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`);
   private marketsOpen = false;
   private finnhubAPI: FinnhubApi;
-  private stockPricePerSymbol: Map<string, number> = new Map();
+  private stockPricePerSymbol: Map<string, StockPricePoint> = new Map();
 
   constructor(httpService: HttpService) {
     super();
@@ -28,12 +29,12 @@ export class FinnhubStockService extends IStockPriceProviderService {
     return targetStocksSymbols;
   }
 
-  getCurrentStockPrice(symbol: string): number {
-    const price = this.stockPricePerSymbol.get(symbol)?.valueOf();
-    if (price !== undefined) {
-      return price;
+  getCurrentStockPrice(symbol: string): StockPricePoint {
+    const priceInfo = this.stockPricePerSymbol.get(symbol);
+    if (priceInfo !== undefined) {
+      return priceInfo;
     } else {
-      return -1;
+      return { price: -1, timestamp: -1 };
     }
   }
 
@@ -56,7 +57,10 @@ export class FinnhubStockService extends IStockPriceProviderService {
   private updateStocks() {
     for (const stock of targetStocksSymbols) {
       this.finnhubAPI.quoteForStock(stock.symbol).subscribe((value) => {
-        this.stockPricePerSymbol.set(stock.symbol, value.c);
+        this.stockPricePerSymbol.set(stock.symbol, {
+          price: value.c,
+          timestamp: Date.now(),
+        });
       });
     }
   }

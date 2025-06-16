@@ -19,10 +19,11 @@ export class StockPriceController {
 
   @Get('currentStockPrice')
   getStockprices(@Query('symbol') symbol: string): StockPriceDTO {
+    const priceInfo = this.stockPriceProvider.getCurrentStockPrice(symbol);
     return {
-      price: this.stockPriceProvider.getCurrentStockPrice(symbol),
+      price: priceInfo.price,
       symbol: symbol,
-      timestamp: -1,
+      timestamp: priceInfo.timestamp,
     };
   }
 
