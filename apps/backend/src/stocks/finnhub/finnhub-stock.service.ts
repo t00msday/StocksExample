@@ -4,30 +4,36 @@ import { HttpService } from '@nestjs/axios';
 import { targetStocksSymbols } from '../stock-config';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
+import { IStockPriceProviderService } from '../i-stock-price-provider-service';
+import { StockID } from '@stocksexample/shared/dist/StockID';
 
 const UPDATE_INTERVAL_MS: number = 30000;
 
 @Injectable()
-export class FinnhubStockService {
+export class FinnhubStockService extends IStockPriceProviderService {
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`);
   private marketsOpen = false;
   private finnhubAPI: FinnhubApi;
 
   constructor(httpService: HttpService) {
+    super();
     this.finnhubAPI = new FinnhubApi(httpService, FINNHUB_TOKEN);
     this.updateMarketStatus();
     this.updateStocks();
     setInterval(() => this.updateMarketData(), UPDATE_INTERVAL_MS);
   }
 
+  getAvailableStocks(): Array<StockID> {
+    return targetStocksSymbols;
+  }
+
   getHello(): string {
     return 'Hello World!';
   }
 
-  private updateMarketData(){
+  private updateMarketData() {
     this.updateMarketStatus();
-    if(this.marketsOpen)
-      this.updateStocks();
+    if (this.marketsOpen) this.updateStocks();
   }
 
   private updateMarketStatus() {
@@ -36,7 +42,6 @@ export class FinnhubStockService {
       this.marketsOpen = value.isOpen;
     });
   }
-
 
   private updateStocks() {
     for (const stock of targetStocksSymbols) {
