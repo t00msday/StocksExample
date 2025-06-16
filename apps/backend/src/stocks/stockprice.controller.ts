@@ -2,6 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { IStockPriceProviderService } from './i-stock-price-provider-service';
 import { StockAvailabilityDTO } from '@stocksexample/shared/dist/DTO/StockAvailabilityDTO';
 import { StockPriceDTO } from '@stocksexample/shared/dist/DTO/StockPriceDTO';
+import { MarketStatusDTO } from '@stocksexample/shared/dist/DTO/MarketStatusDTO';
 
 @Controller('stocks')
 export class StockPriceController {
@@ -18,6 +19,15 @@ export class StockPriceController {
 
   @Get('currentStockPrice')
   getStockprices(@Query('symbol') symbol: string): StockPriceDTO {
-    return this.stockPriceProvider.getCurrentStockPrice(symbol);
+    return {
+      price: this.stockPriceProvider.getCurrentStockPrice(symbol),
+      symbol: symbol,
+      timestamp: -1,
+    };
+  }
+
+  @Get('marketStatus')
+  getMarketStatus(): MarketStatusDTO {
+    return { marketOpen: this.stockPriceProvider.getMarketStatus() };
   }
 }

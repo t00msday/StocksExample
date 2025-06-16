@@ -6,13 +6,11 @@ import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
 import { IStockPriceProviderService } from '../i-stock-price-provider-service';
 import { StockID } from '@stocksexample/shared/dist/StockID';
-import { StockPriceDTO } from '@stocksexample/shared/dist/DTO/StockPriceDTO';
 
 const UPDATE_INTERVAL_MS: number = 30000;
 
 @Injectable()
 export class FinnhubStockService extends IStockPriceProviderService {
-
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`);
   private marketsOpen = false;
   private finnhubAPI: FinnhubApi;
@@ -30,16 +28,17 @@ export class FinnhubStockService extends IStockPriceProviderService {
     return targetStocksSymbols;
   }
 
-  getCurrentStockPrice(symbol: string): StockPriceDTO {
+  getCurrentStockPrice(symbol: string): number {
     const price = this.stockPricePerSymbol.get(symbol)?.valueOf();
     if (price !== undefined) {
-      return {
-        symbol: symbol,
-        price: price,
-        timestamp: 0,
-      };
+      return price;
+    } else {
+      return -1;
     }
-    return { symbol: symbol, price: -1, timestamp: -1 };
+  }
+
+  getMarketStatus(): boolean {
+    return this.marketsOpen;
   }
 
   private updateMarketData() {
