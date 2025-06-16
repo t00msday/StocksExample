@@ -5,7 +5,7 @@ import { targetStocksSymbols } from '../stock-config';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
 
-
+const UPDATE_INTERVAL_MS:number = 30000;
 
 @Injectable()
 export class FinnhubConnectionService {
@@ -17,10 +17,8 @@ export class FinnhubConnectionService {
     this.finnhubAPI = new FinnhubApi(httpService, FINNHUB_TOKEN);
     this.updateMarketStatus();
     this.updateStocks();
-    setInterval(() => this.updateMarketData(), 60000);
+    setInterval(() => this.updateMarketData(), UPDATE_INTERVAL_MS);
   }
-
-
 
   getHello(): string {
     return 'Hello World!';
