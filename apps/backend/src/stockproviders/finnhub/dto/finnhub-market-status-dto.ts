@@ -1,4 +1,4 @@
-export interface FinnhubMarketStatusDTO {
+export interface FinnhubMarketStatusDto {
   exchange: string;
   holiday: any;
   isOpen: boolean;

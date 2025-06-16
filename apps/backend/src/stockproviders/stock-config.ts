@@ -1,1 +1,1 @@
-export const targetStocksSymbols = ['MSF', 'AAPL'];
+export const targetStocksSymbols = ['MSFT', 'AAPL', 'NVDA'];
