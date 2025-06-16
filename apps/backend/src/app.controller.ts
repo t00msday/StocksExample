@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { FinnhubConnectionService } from './stockproviders/finnhub/finnhub-connection.service';
+import { FinnhubStockService } from './stocks/finnhub/finnhub-stock.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: FinnhubConnectionService) {}
+  constructor(private readonly appService: FinnhubStockService) {}
 
   @Get()
   getHello(): string {

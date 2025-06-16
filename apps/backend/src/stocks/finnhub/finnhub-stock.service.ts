@@ -5,15 +5,15 @@ import { targetStocksSymbols } from '../stock-config';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
 
-const UPDATE_INTERVAL_MS:number = 30000;
+const UPDATE_INTERVAL_MS: number = 30000;
 
 @Injectable()
-export class FinnhubConnectionService {
+export class FinnhubStockService {
   private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`);
   private marketsOpen = false;
   private finnhubAPI: FinnhubApi;
 
-  constructor(private readonly httpService: HttpService) {
+  constructor(httpService: HttpService) {
     this.finnhubAPI = new FinnhubApi(httpService, FINNHUB_TOKEN);
     this.updateMarketStatus();
     this.updateStocks();
