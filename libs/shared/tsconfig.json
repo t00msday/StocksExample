@@ -7,6 +7,7 @@
     "rootDir": "src",
     "module": "CommonJS",
     "target": "ES2017",
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }

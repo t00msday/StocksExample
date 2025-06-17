@@ -1,7 +1,6 @@
-import {StockID} from "../StockID";
+import {StockPricePoint} from "../StockPricePoint";
 
 export interface StockPriceDTO {
-    price: number;
     symbol: string;
-    timestamp: number;
+    prices: StockPricePoint[]
 }
