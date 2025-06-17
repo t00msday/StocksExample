@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Stockchart} from '../stockchart/stockchart';
 import {StockService} from '../stock.service';
 import {IChartDataSet} from '../stockchart/chart-data-set';
-import {BehaviorSubject, Observable, pipe} from 'rxjs';
+import {BehaviorSubject, Observable, map} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
@@ -25,12 +25,10 @@ export class CurrentView {
     constructor(private stockService:StockService) {
 
 
-      stockService.watchStock("AAPL").subscribe(stock => {
-        console.log(stock);
-        this.appleCharData$.data.push([stock.price]);
-        this.currentData$$.next(this.currentData$$.value);
-      })
-
+      stockService.stockUpdates$.pipe(
+        map((stockPriceDTOs)=>  stockPriceDTOs.map( stockPriceDTO => ({ data: stockPriceDTO.prices, label: stockPriceDTO.symbol} )))
+        ).subscribe((chartData)=> this.currentData$$.next(chartData));
+      stockService.watchStock("MSFT")
 
     }
 }

@@ -11,7 +11,7 @@ const baseURL= "http://127.0.0.1:3000/stocks/"
 
 export class StockService {
 
-  private stockUpdate$$= new ReplaySubject<StockPriceDTO>();
+  private stockUpdate$$= new ReplaySubject<StockPriceDTO[]>();
   stockUpdates$= this.stockUpdate$$.asObservable();
 
   private watchedSymbols:Set<string> = new Set();
@@ -22,24 +22,25 @@ export class StockService {
     setInterval(()=>this.updateStockPricesContinuously(), 1000);
   }
 
-  watchStock(symbol:string): Observable<StockPriceDTO> {
+  watchStock(symbol:string) {
     this.watchedSymbols.add(symbol);
-    return this.stockUpdates$.pipe(filter(stockPrice => stockPrice.symbol === symbol));
   }
 
   unwatchStock(symbol:string): void{
     this.watchedSymbols.delete(symbol);
   }
+
   private updateStockPricesContinuously() {
-    this.watchedSymbols.forEach((symbol)=>{
-        this.getStockPrice(symbol).subscribe(stockPrice => {
+
+        this.getStockPrice(Array.from(this.watchedSymbols.values())).subscribe(stockPrice => {
             this.stockUpdate$$.next(stockPrice);
         })
-    })
+
   }
 
-  private getStockPrice(symbol: string): Observable<StockPriceDTO> {
-      return this.http.get<StockPriceDTO>(`${baseURL}currentStockPrice?symbol=${symbol}`)
+  private getStockPrice(symbols: string[]): Observable<StockPriceDTO[]> {
+
+      return this.http.get<StockPriceDTO[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
   }
 
 

@@ -1,4 +1,6 @@
+import {StockPricePoint} from '@stocksexample/shared/dist/StockPricePoint';
+
 export interface IChartDataSet {
-  data: Array<number[]>,
+  data: Array<StockPricePoint>,
   label: string
 }
