@@ -15,13 +15,11 @@ export class Stockchart {
   @Input()
   get stockData():Array<IChartDataSet> {return this._stockData;}
   set stockData(value:Array<IChartDataSet>) {
-    
     this._stockData = value;
+    const datasetValue = this._stockData.map((item:IChartDataSet) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price)}))
     this.chartsData = {
       labels: this.stockData.at(0)!.data.map(pp=>pp.timestamp),
-      datasets: [
-        {label: this.stockData.at(0)!.label, data:this.stockData.at(0)!.data.map(pp=>pp.price),}
-      ]
+      datasets: datasetValue
     };
 
   }
