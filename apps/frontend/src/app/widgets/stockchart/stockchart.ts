@@ -21,56 +21,70 @@ export class Stockchart {
       labels: this.stockData.at(0)!.data.map(pp=> new Date(pp.timestamp)),
       datasets: datasetValue
     };
+    this.chartOptions = {
+      animation: {
+        duration: 0
+      },
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      stacked: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Line Chart - Multi Axis'
+        }
+      },
+      scales: {
+        y0: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+          title:{
+            display: true,
+            text: value.length>0? value[0].label:"",
+          },
+        },
+        y1: {
+          type: 'linear',
+          display: value.length>1,
+          position: 'right',
+          title:{
+            display: true,
+            text:value.length>1?value[1].label:"",
+          },
+          // grid line settings
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
+
+        y2: {
+          type: 'linear',
+          label: 'yolo',
+          display: value.length > 2,
+          position: 'right',
+          title:{
+            display: true,
+            text:value.length>2?value[2].label:"",
+          },
+
+          // grid line settings
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
+      }
+
+    }
 
   }
 
   protected chartsData: any = {};
-  public lineChartType:ChartType= 'line';
-  chartOptions: any = {
-    animation: {
-      duration: 0
-    },
-    responsive: true,
-    interaction: {
-      mode: 'index',
-      intersect: false,
-    },
-    stacked: false,
-    plugins: {
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart - Multi Axis'
-      }
-    },
-    scales: {
-      y0: {
-        type: 'linear',
-        display: true,
-        position: 'left',
-      },
-      y1: {
-        type: 'linear',
-        display: true,
-        position: 'right',
+  protected chartOptions: any = {};
 
-        // grid line settings
-        grid: {
-          drawOnChartArea: false, // only want the grid lines for one axis to show up
-        },
-      },
-
-      y2: {
-        type: 'linear',
-        display: true,
-        position: 'right',
-
-        // grid line settings
-        grid: {
-          drawOnChartArea: false, // only want the grid lines for one axis to show up
-        },
-      },
-    }
-
-  }
+  protected lineChartType:ChartType= 'line';
 
 }
