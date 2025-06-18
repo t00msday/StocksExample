@@ -1,4 +1,4 @@
-FROM stocksexample_base:latest as build
+FROM stocksexample_base:latest AS build
 
 WORKDIR /usr/src/app/apps/frontend
 
@@ -13,6 +13,6 @@ RUN npm run build --configuration=production
 
 FROM nginx:latest
 
-COPY --from=build dist/aftas-angular /usr/share/nginx/html
+COPY --from=build /usr/src/app/apps/frontend/dist/frontend/browser /usr/share/nginx/html
 
 EXPOSE 80
