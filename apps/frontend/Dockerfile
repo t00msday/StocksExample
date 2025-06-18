@@ -1,11 +1,10 @@
-FROM node:22.12.0-alpine AS build
+FROM stocksexample_base:latest as build
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/apps/frontend
 
-COPY package*.json ./
+COPY  package*.json ./
 
 RUN npm install
-
 RUN npm install -g @angular/cli
 
 COPY . .
