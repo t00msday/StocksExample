@@ -40,10 +40,11 @@ export class StockService {
   }
 
   private updateStockPricesContinuously() {
-
-        this.getStockPrice(Array.from(this.watchedSymbols.values())).subscribe(stockPrice => {
-            this.stockUpdate$$.next(stockPrice);
-        })
+    if(this.watchedSymbols.size > 0){
+      this.getStockPrice(Array.from(this.watchedSymbols.values())).subscribe(stockPrice => {
+        this.stockUpdate$$.next(stockPrice);
+      })
+    }
 
   }
 

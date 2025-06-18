@@ -22,6 +22,11 @@ export class Stockchart {
   get stockData():Array<IChartDataSet> {return this._stockData;}
   set stockData(value:Array<IChartDataSet>) {
     this._stockData = value;
+
+    if(this._stockData === null) {
+      this._stockData = new Array<IChartDataSet>();
+      return
+    }
     const datasetValue = this._stockData.map((item:IChartDataSet, index) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price), yAxisID: `y${index}`}))
     this.chartsData = {
       labels: this.stockData.at(0)!.data.map(pp=> new Date(pp.timestamp)),
