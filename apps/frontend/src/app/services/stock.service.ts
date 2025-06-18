@@ -23,7 +23,6 @@ export class StockService {
 
 
   constructor(private http: HttpClient) {
-    console.log("StockService");
     this.updateAvailableSymbols();
     setInterval(()=>this.updateStockPricesContinuously(), 1000);
   }
