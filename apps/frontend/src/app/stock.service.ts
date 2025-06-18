@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Observer, ReplaySubject, timer, pipe, from, filter} from 'rxjs';
-import {StockPriceDTO} from '@stocksexample/shared/dist/DTO/StockPriceDTO';
-import {StockAvailabilityDTO} from '@stocksexample/shared/dist/DTO/StockAvailabilityDTO';
-import {StockID} from '@stocksexample/shared/dist/StockID';
+import {StockPriceDTO} from '@stocksexample/shared';
+import {StockAvailabilityDTO} from '@stocksexample/shared';
+import {StockID} from '@stocksexample/shared';
 
 const baseURL= "http://127.0.0.1:3000/stocks/"
 

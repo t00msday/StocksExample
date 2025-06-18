@@ -18,17 +18,18 @@ export class Stockchart {
     this._stockData = value;
     const datasetValue = this._stockData.map((item:IChartDataSet) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price)}))
     this.chartsData = {
-      labels: this.stockData.at(0)!.data.map(pp=>pp.timestamp),
+      labels: this.stockData.at(0)!.data.map(pp=> new Date(pp.timestamp)),
       datasets: datasetValue
     };
 
   }
 
-  protected chartsData: any = {}
-
-
-
-
-public lineChartType:ChartType= 'line';
+  protected chartsData: any = {};
+  public lineChartType:ChartType= 'line';
+  chartOptions: any = {
+    animation: {
+      duration: 0
+    },
+  }
 
 }
