@@ -2,6 +2,9 @@ import {Component, Input} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import {IChartDataSet} from './chart-data-set';
 import {ChartOptions, ChartType} from 'chart.js';
+import 'chartjs-adapter-date-fns';
+import {de} from 'date-fns/locale';
+
 
 @Component({
   selector: 'app-stockchart',
@@ -12,6 +15,9 @@ import {ChartOptions, ChartType} from 'chart.js';
 export class Stockchart {
 
   private _stockData:Array<IChartDataSet>= new Array<IChartDataSet>();
+
+  @Input() chartTitle:string = 'StockChart';
+
   @Input()
   get stockData():Array<IChartDataSet> {return this._stockData;}
   set stockData(value:Array<IChartDataSet>) {
@@ -34,10 +40,26 @@ export class Stockchart {
       plugins: {
         title: {
           display: true,
-          text: 'Chart.js Line Chart - Multi Axis'
+          text: this.chartTitle
         }
       },
       scales: {
+        x: {
+          type: 'time',
+          adapters: {
+            date: {
+              locale: de
+            }
+          },
+          time: {
+            displayFormats: {
+              hour: 'HH:mm',
+              minute: 'HH:mm'
+
+            }
+          },
+          ticks: {source: 'auto'}
+        },
         y0: {
           type: 'linear',
           display: true,

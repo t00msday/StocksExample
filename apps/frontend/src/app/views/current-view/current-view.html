@@ -1,4 +1,9 @@
 <div>
   <div> Current Stock Prices</div>
-  <app-stockchart [stockData]="(currentData$ | async)!"></app-stockchart>
+  <app-stockchart
+    [stockData]="(currentData$ | async)!"
+    chartTitle="Current Stock Prices, updated once per Minute"
+  >
+
+  </app-stockchart>
 </div>
