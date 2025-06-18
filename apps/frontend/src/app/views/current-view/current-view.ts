@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {Stockchart} from '../stockchart/stockchart';
-import {StockService} from '../stock.service';
-import {IChartDataSet} from '../stockchart/chart-data-set';
+import {Stockchart} from '../../widgets/stockchart/stockchart';
+import {StockService} from '../../services/stock.service';
+import {IChartDataSet} from '../../widgets/stockchart/chart-data-set';
 import {BehaviorSubject, Observable, map} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 

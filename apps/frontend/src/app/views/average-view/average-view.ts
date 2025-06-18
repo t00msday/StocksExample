@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Stockchart} from '../stockchart/stockchart';
+import {Stockchart} from '../../widgets/stockchart/stockchart';
 
 @Component({
   selector: 'app-average-view',

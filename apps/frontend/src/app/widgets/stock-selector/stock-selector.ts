@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {StockService} from '../stock.service';
+import {StockService} from '../../services/stock.service';
 import {AsyncPipe} from '@angular/common';
 import {MatCheckbox} from '@angular/material/checkbox';
 
