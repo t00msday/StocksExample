@@ -16,7 +16,7 @@ export class Stockchart {
   get stockData():Array<IChartDataSet> {return this._stockData;}
   set stockData(value:Array<IChartDataSet>) {
     this._stockData = value;
-    const datasetValue = this._stockData.map((item:IChartDataSet) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price)}))
+    const datasetValue = this._stockData.map((item:IChartDataSet, index) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price), yAxisID: `y${index}`}))
     this.chartsData = {
       labels: this.stockData.at(0)!.data.map(pp=> new Date(pp.timestamp)),
       datasets: datasetValue
@@ -30,6 +30,47 @@ export class Stockchart {
     animation: {
       duration: 0
     },
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    stacked: false,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart - Multi Axis'
+      }
+    },
+    scales: {
+      y0: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+      },
+      y1: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+
+        // grid line settings
+        grid: {
+          drawOnChartArea: false, // only want the grid lines for one axis to show up
+        },
+      },
+
+      y2: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+
+        // grid line settings
+        grid: {
+          drawOnChartArea: false, // only want the grid lines for one axis to show up
+        },
+      },
+    }
+
   }
 
 }
