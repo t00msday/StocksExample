@@ -15,20 +15,16 @@ import {AsyncPipe} from '@angular/common';
   styleUrl: './current-view.sass'
 })
 export class CurrentView {
-    private appleCharData$: IChartDataSet = {data:[], label:"Apple"}
 
-    currentData$$: BehaviorSubject<Array<IChartDataSet>> = new BehaviorSubject<Array<IChartDataSet>>(new Array<IChartDataSet>(this.appleCharData$));
-    currentData$: Observable<Array<IChartDataSet>> = this.currentData$$.asObservable();
-
+    currentData$: Observable<Array<IChartDataSet>>;
 
 
     constructor(private stockService:StockService) {
-
-
-      stockService.stockUpdates$.pipe(
-        map((stockPriceDTOs)=>  stockPriceDTOs.map( stockPriceDTO => ({ data: stockPriceDTO.prices, label: stockPriceDTO.symbol} )))
-        ).subscribe((chartData)=> this.currentData$$.next(chartData));
-      stockService.watchStock("MSFT")
+      this.currentData$ = this.stockService.stockUpdates$
+        .pipe(
+          map((stockPriceDTOs)=>  stockPriceDTOs
+            .map( stockPriceDTO => ({ data: stockPriceDTO.prices, label: stockPriceDTO.symbol} )))
+      )
 
     }
 }
