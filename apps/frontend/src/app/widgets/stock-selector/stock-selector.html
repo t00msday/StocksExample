@@ -1,4 +1,5 @@
-<div>
+<div class="options_stack">
+
   @for (symbol of stockService.availableSymbols$|async; track symbol.name){
     <mat-checkbox
     (change)="watchSymbol($event.checked, symbol.symbol)"
