@@ -46,7 +46,7 @@ export class AverageView {
     let numOfPricesSummedUp = 0;
     let startDateOfSum= prices[0].timestamp;
     for (const price of prices) {
-      if(price.timestamp - maxTimeGap > startDateOfSum) { // moretime passed than gap
+      if(price.timestamp - maxTimeGap > startDateOfSum) { // more time passed than gap
         averagedPrices.push({price:sumOfPrices/numOfPricesSummedUp, timestamp:startDateOfSum});
         sumOfPrices=price.price;
         numOfPricesSummedUp=1;

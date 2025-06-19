@@ -1,8 +1,8 @@
 import { Controller, Get, ParseArrayPipe, Query } from '@nestjs/common';
 import { IStockPriceProviderService } from './i-stock-price-provider-service';
-import { StockAvailabilityDTO } from '@stocksexample/shared/dist/DTO/StockAvailabilityDTO';
-import { StockPriceDTO } from '@stocksexample/shared/dist/DTO/StockPriceDTO';
-import { MarketStatusDTO } from '@stocksexample/shared/dist/DTO/MarketStatusDTO';
+import { StockAvailabilityDto } from '@stocksexample/shared';
+import { StockPriceHistoryDTO } from '@stocksexample/shared';
+import { MarketStatusDto } from '@stocksexample/shared';
 
 @Controller('stocks')
 export class StockPriceController {
@@ -11,7 +11,7 @@ export class StockPriceController {
   ) {}
 
   @Get('availableStocks')
-  getAvailableStocks(): StockAvailabilityDTO {
+  getAvailableStocks(): StockAvailabilityDto {
     return {
       stocks: this.stockPriceProvider.getAvailableStocks(),
     };
@@ -21,8 +21,8 @@ export class StockPriceController {
   getStockprices(
     @Query('symbols', new ParseArrayPipe({ items: String, separator: ',' }))
     symbols: string[],
-  ): StockPriceDTO[] {
-    const priceUpdates = new Array<StockPriceDTO>();
+  ): StockPriceHistoryDTO[] {
+    const priceUpdates = new Array<StockPriceHistoryDTO>();
     for (const symbol of symbols) {
       const priceInfo = this.stockPriceProvider.getCurrentStockPrice(symbol);
       priceUpdates.push({ symbol: symbol, prices: priceInfo });
@@ -32,7 +32,7 @@ export class StockPriceController {
   }
 
   @Get('marketStatus')
-  getMarketStatus(): MarketStatusDTO {
+  getMarketStatus(): MarketStatusDto {
     return { marketOpen: this.stockPriceProvider.getMarketStatus() };
   }
 }
