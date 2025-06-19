@@ -1,0 +1,8 @@
+<mat-card>
+  Markets are currently:
+  @if(stockService.marketStatus$){
+   <div>open</div>
+  }@else{
+  <div>closed</div>
+  }
+</mat-card>

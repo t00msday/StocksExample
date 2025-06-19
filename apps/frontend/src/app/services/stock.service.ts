@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Observer, ReplaySubject, timer, pipe, from, filter} from 'rxjs';
-import {StockPriceHistoryDTO} from '@stocksexample/shared';
+import {MarketStatusDto, StockPriceHistoryDTO} from '@stocksexample/shared';
 import {StockAvailabilityDto} from '@stocksexample/shared';
 import {StockId} from '@stocksexample/shared';
 
@@ -13,8 +13,11 @@ const baseURL= "http://127.0.0.1:3000/stocks/"
 
 export class StockService {
 
-  private stockUpdate$$= new ReplaySubject<StockPriceHistoryDTO[]>(1);
-  stockHistories$= this.stockUpdate$$.asObservable();
+  private marketStatus$$= new ReplaySubject<boolean>(1);
+  marketStatus$= this.marketStatus$$.asObservable();
+
+  private stockHistories= new ReplaySubject<StockPriceHistoryDTO[]>(1);
+  stockHistories$= this.stockHistories.asObservable();
 
   private trackedSymbols$$= new ReplaySubject<StockId[]>(1);
   availableSymbols$= this.trackedSymbols$$.asObservable();
@@ -24,7 +27,8 @@ export class StockService {
 
   constructor(private http: HttpClient) {
     this.updateAvailableSymbols();
-    setInterval(()=>this.updateStockPricesContinuously(), 1000);
+    setInterval(()=>this.updateStockPricesContinuously(), 60 * 1000); //update stock prices every minute
+    setInterval(()=> this.updateMarketStatus(), 15*60*1000); // updated marketStatus every 15 minutes
   }
 
   watchStock(symbol:string) {
@@ -42,18 +46,23 @@ export class StockService {
   private updateStockPricesContinuously() {
     if(this.watchedSymbols.size > 0){
       this.getStockPrice(Array.from(this.watchedSymbols.values())).subscribe(stockPrice => {
-        this.stockUpdate$$.next(stockPrice);
+        this.stockHistories.next(stockPrice);
       })
     }
 
   }
 
   private getStockPrice(symbols: string[]): Observable<StockPriceHistoryDTO[]> {
-
       return this.http.get<StockPriceHistoryDTO[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
   }
 
   isWatched(symbol: string) {
     this.watchedSymbols.has(symbol);
+  }
+
+  private updateMarketStatus() {
+    this.http.get<MarketStatusDto>(`${baseURL}marketStatus`).subscribe(marketStatus => {
+      this.marketStatus$$.next(marketStatus.marketOpen);
+    });
   }
 }
