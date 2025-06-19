@@ -1,4 +1,7 @@
 <div>
   <div>Average Stock Prices</div>
- <app-stockchart></app-stockchart>
+ <app-stockchart
+   [stockData]="(averageData | async)!"
+   chartTitle="Current Stock Prices, updated once per Minute"
+ ></app-stockchart>
 </div>
