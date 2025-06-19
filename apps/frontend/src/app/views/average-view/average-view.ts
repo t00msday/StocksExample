@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Stockchart } from '../../widgets/stockchart/stockchart';
+import { StockChart } from '../../widgets/stock-chart/stock-chart';
 import { map, Observable } from 'rxjs';
-import { IChartDataSet } from '../../widgets/stockchart/chart-data-set';
+import { IChartDataSet } from '../../widgets/stock-chart/chart-data-set';
 import { StockService } from '../../services/stock.service';
 import { StockPricePoint } from '@stocksexample/shared';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-average-view',
-  imports: [Stockchart, AsyncPipe],
+  imports: [StockChart, AsyncPipe],
   templateUrl: './average-view.html',
   styleUrl: './average-view.sass',
 })

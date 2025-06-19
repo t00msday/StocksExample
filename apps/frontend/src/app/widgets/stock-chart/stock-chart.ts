@@ -7,12 +7,12 @@ import {de} from 'date-fns/locale';
 
 
 @Component({
-  selector: 'app-stockchart',
+  selector: 'app-stock-chart',
   imports: [BaseChartDirective],
-  templateUrl: './stockchart.html',
+  templateUrl: './stock-chart.html',
   styleUrl: './stockchart.sass'
 })
-export class Stockchart {
+export class StockChart {
 
   private _stockData:Array<IChartDataSet>= new Array<IChartDataSet>();
 
