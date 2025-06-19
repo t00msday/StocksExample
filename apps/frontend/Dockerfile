@@ -16,3 +16,4 @@ FROM nginx:latest
 COPY --from=build /usr/src/app/apps/frontend/dist/frontend/browser /usr/share/nginx/html
 
 EXPOSE 80
+

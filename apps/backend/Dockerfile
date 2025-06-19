@@ -1,14 +1,12 @@
 FROM stocksexample_base:latest AS build
 
-ARG FINNHUB_API_KEY
-ENV
+ENV FINNHUB_API_KEY=
 
 WORKDIR /usr/src/app/apps/backend
 
 COPY  package*.json ./
 
 RUN npm install
-RUN npm install -g @angular/cli
 
 COPY . .
 

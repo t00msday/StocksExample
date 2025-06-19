@@ -1,0 +1,23 @@
+services:
+  base:
+    image: stocksexample_base
+    build:
+      context: .
+  frontend:
+    image: stocksexample_frontend
+    build:
+      context: apps/frontend
+      additional_contexts:
+        stocksexample_base: "service:base"
+    ports:
+      - "8080:80"
+  backend:
+    image: stocksexample_backend
+    build:
+      context: apps/backend
+      additional_contexts:
+        stocksexample_base: "service:base"
+    ports:
+      - "3000:3000"
+    environment:
+      FINNHUB_API_KEY: "YOURKEYHERE"
