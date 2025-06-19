@@ -53,5 +53,7 @@ export class StockService {
       return this.http.get<StockPriceHistoryDTO[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
   }
 
-
+  isWatched(symbol: string) {
+    this.watchedSymbols.has(symbol);
+  }
 }

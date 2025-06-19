@@ -26,4 +26,8 @@ export class StockSelector {
       this.stockService.unwatchStock(symbol);
     }
   }
+
+  isChecked(symbol: string) {
+    this.stockService.isWatched(symbol);
+  }
 }
