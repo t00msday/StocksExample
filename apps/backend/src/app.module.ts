@@ -5,9 +5,10 @@ import { StockPriceController } from './stocks/stockprice.controller';
 import { IStockPriceProviderService } from './stocks/i-stock-price-provider-service';
 import * as process from 'node:process';
 import { MockStockService } from './stocks/mock/mock-stock.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, ConfigModule.forRoot({ isGlobal: true })],
   controllers: [StockPriceController],
   providers: [
     {

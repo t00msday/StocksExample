@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { FINNHUB_TOKEN } from './credentials';
 import { HttpService } from '@nestjs/axios';
 import { targetStocksSymbols } from '../stock-config';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
@@ -7,19 +6,22 @@ import { FinnhubApi } from './finnhub-api';
 import { IStockPriceProviderService } from '../i-stock-price-provider-service';
 import { StockID } from '@stocksexample/shared/dist/StockID';
 import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
+import { ConfigService } from '@nestjs/config';
 
 const UPDATE_INTERVAL_MS: number = 30000;
 
 @Injectable()
 export class FinnhubStockService extends IStockPriceProviderService {
-  private ws = new WebSocket(`wss://ws.finnhub.io?token=${FINNHUB_TOKEN}`);
   private marketsOpen = false;
   private finnhubAPI: FinnhubApi;
   private stockPricePerSymbol: Map<string, StockPricePoint[]> = new Map();
 
-  constructor(httpService: HttpService) {
+  constructor(httpService: HttpService, configService: ConfigService) {
     super();
-    this.finnhubAPI = new FinnhubApi(httpService, FINNHUB_TOKEN);
+    this.finnhubAPI = new FinnhubApi(
+      httpService,
+      configService.getOrThrow<string>('FINNHUB_API_KEY'),
+    );
     for (const stockId of targetStocksSymbols) {
       this.stockPricePerSymbol.set(stockId.symbol, []);
     }

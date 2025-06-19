@@ -1,5 +1,8 @@
 FROM stocksexample_base:latest AS build
 
+ARG FINNHUB_API_KEY
+ENV
+
 WORKDIR /usr/src/app/apps/backend
 
 COPY  package*.json ./
