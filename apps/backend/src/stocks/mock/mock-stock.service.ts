@@ -1,4 +1,4 @@
-import { StockID, StockPricePoint } from '@stocksexample/shared';
+import { StockId, StockPricePoint } from '@stocksexample/shared';
 import { IStockPriceProviderService } from '../i-stock-price-provider-service';
 import { targetStocksSymbols } from '../stock-config';
 
@@ -26,7 +26,7 @@ export class MockStockService extends IStockPriceProviderService {
     });
   }
 
-  getAvailableStocks(): Array<StockID> {
+  getAvailableStocks(): Array<StockId> {
     return targetStocksSymbols;
   }
   getCurrentStockPrice(symbol: string): StockPricePoint[] {
