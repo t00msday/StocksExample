@@ -1,6 +1,6 @@
 import {StockPricePoint} from "../stock-price-point";
 
-export interface StockPriceDto {
+export interface StockPriceHistoryDTO {
     symbol: string;
     prices: StockPricePoint[]
 }
