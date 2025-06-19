@@ -1,3 +1,3 @@
-export * from './MarketStatusDTO';
-export * from './StockAvailabilityDTO';
-export * from './StockPriceDTO';
+export * from './market-status-dto';
+export * from './stock-availability-dto';
+export * from './stock-price-dto';

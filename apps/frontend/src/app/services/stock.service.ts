@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Observer, ReplaySubject, timer, pipe, from, filter} from 'rxjs';
-import {StockPriceDTO} from '@stocksexample/shared';
-import {StockAvailabilityDTO} from '@stocksexample/shared';
-import {StockID} from '@stocksexample/shared';
+import {StockPriceDto} from '@stocksexample/shared';
+import {StockAvailabilityDto} from '@stocksexample/shared';
+import {StockId} from '@stocksexample/shared';
 
 const baseURL= "http://127.0.0.1:3000/stocks/"
 
@@ -13,11 +13,11 @@ const baseURL= "http://127.0.0.1:3000/stocks/"
 
 export class StockService {
 
-  private stockUpdate$$= new ReplaySubject<StockPriceDTO[]>(1);
+  private stockUpdate$$= new ReplaySubject<StockPriceDto[]>(1);
   stockUpdates$= this.stockUpdate$$.asObservable();
 
-  private availableSymbols$$= new ReplaySubject<StockID[]>(1);
-  availableSymbols$= this.availableSymbols$$.asObservable();
+  private trackedSymbols$$= new ReplaySubject<StockId[]>(1);
+  availableSymbols$= this.trackedSymbols$$.asObservable();
 
   private watchedSymbols:Set<string> = new Set();
 
@@ -36,7 +36,7 @@ export class StockService {
   }
 
   private updateAvailableSymbols(){
-    this.http.get<StockAvailabilityDTO>(`${baseURL}availableStocks`).subscribe((availableStockDTO) => this.availableSymbols$$.next(availableStockDTO.stocks))
+    this.http.get<StockAvailabilityDto>(`${baseURL}availableStocks`).subscribe((availableStockDTO) => this.trackedSymbols$$.next(availableStockDTO.stocks))
   }
 
   private updateStockPricesContinuously() {
@@ -48,9 +48,9 @@ export class StockService {
 
   }
 
-  private getStockPrice(symbols: string[]): Observable<StockPriceDTO[]> {
+  private getStockPrice(symbols: string[]): Observable<StockPriceDto[]> {
 
-      return this.http.get<StockPriceDTO[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
+      return this.http.get<StockPriceDto[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
   }
 
 
