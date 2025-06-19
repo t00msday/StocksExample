@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import {StockService} from '../../services/stock.service';
 import {AsyncPipe} from '@angular/common';
 import {MatCheckbox} from '@angular/material/checkbox';
+import {MatCard} from '@angular/material/card';
 
 @Component({
   selector: 'app-stock-selector',
   imports: [
     AsyncPipe,
-    MatCheckbox
+    MatCheckbox,
+    MatCard
   ],
   templateUrl: './stock-selector.html',
   styleUrl: './stock-selector.sass'

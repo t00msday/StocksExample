@@ -1,4 +1,6 @@
-<div class="options_stack">
+
+<mat-card class="stock-selector">
+<div class="stock-selector__list">
 
   @for (stockSymbol of stockService.availableSymbols$|async; track stockSymbol.name){
     <mat-checkbox
@@ -10,3 +12,4 @@
   }
 
 </div>
+</mat-card>
