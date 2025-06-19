@@ -16,7 +16,7 @@ export class AverageView {
 
   averageData: Observable<Array<IChartDataSet>>;
 
-  constructor(stockService:StockService) {this.averageData = stockService.stockUpdates$
+  constructor(stockService:StockService) {this.averageData = stockService.stockHistories$
     .pipe(
       map((stockPriceDTOs)=>  stockPriceDTOs
         .map( stockPriceDTO => ({ data: stockPriceDTO.prices, label: stockPriceDTO.symbol} )))

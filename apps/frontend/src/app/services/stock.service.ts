@@ -14,7 +14,7 @@ const baseURL= "http://127.0.0.1:3000/stocks/"
 export class StockService {
 
   private stockUpdate$$= new ReplaySubject<StockPriceHistoryDTO[]>(1);
-  stockUpdates$= this.stockUpdate$$.asObservable();
+  stockHistories$= this.stockUpdate$$.asObservable();
 
   private trackedSymbols$$= new ReplaySubject<StockId[]>(1);
   availableSymbols$= this.trackedSymbols$$.asObservable();

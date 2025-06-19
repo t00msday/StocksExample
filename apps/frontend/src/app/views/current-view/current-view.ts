@@ -20,7 +20,7 @@ export class CurrentView {
 
 
     constructor(private stockService:StockService) {
-      this.currentData$ = this.stockService.stockUpdates$
+      this.currentData$ = this.stockService.stockHistories$
         .pipe(
           map((stockPriceDTOs)=>  stockPriceDTOs
             .map( stockPriceDTO => ({ data: stockPriceDTO.prices, label: stockPriceDTO.symbol} )))
