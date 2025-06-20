@@ -1,4 +1,11 @@
-import { Controller, Get, ParseArrayPipe, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  ParseArrayPipe,
+  Query,
+} from '@nestjs/common';
 import { IStockPriceProviderService } from './i-stock-price-provider-service';
 import { StockAvailabilityDto } from '@stocksexample/shared';
 import { StockPriceHistoryDTO } from '@stocksexample/shared';
@@ -23,6 +30,11 @@ export class StockPriceController {
     symbols: string[],
   ): StockPriceHistoryDTO[] {
     const priceUpdates = new Array<StockPriceHistoryDTO>();
+    if (!symbols.every((item) => this.stockPriceProvider.hasStock(item)))
+      throw new HttpException(
+        'Stock Information not available',
+        HttpStatus.NOT_FOUND,
+      );
     for (const symbol of symbols) {
       const priceInfo = this.stockPriceProvider.getCurrentStockPrice(symbol);
       priceUpdates.push({ symbol: symbol, prices: priceInfo });

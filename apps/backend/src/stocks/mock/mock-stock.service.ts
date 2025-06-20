@@ -3,7 +3,7 @@ import { IStockPriceProviderService } from '../i-stock-price-provider-service';
 import { targetStocksSymbols } from '../stock-config';
 
 export class MockStockService extends IStockPriceProviderService {
-  private _pricesBySymbol = new Map<string, StockPricePoint[]>();
+  private pricesBySymbol = new Map<string, StockPricePoint[]>();
 
   constructor() {
     super();
@@ -22,7 +22,7 @@ export class MockStockService extends IStockPriceProviderService {
         });
       }
 
-      this._pricesBySymbol.set(symbol.symbol, priceData);
+      this.pricesBySymbol.set(symbol.symbol, priceData);
     });
   }
 
@@ -30,7 +30,7 @@ export class MockStockService extends IStockPriceProviderService {
     return targetStocksSymbols;
   }
   getCurrentStockPrice(symbol: string): StockPricePoint[] {
-    const priceInfo = this._pricesBySymbol.get(symbol);
+    const priceInfo = this.pricesBySymbol.get(symbol);
     if (priceInfo !== undefined) {
       return priceInfo;
     } else {
@@ -39,5 +39,11 @@ export class MockStockService extends IStockPriceProviderService {
   }
   getMarketStatus(): boolean {
     return true;
+  }
+
+  hasStock(symbol: string): boolean {
+    return (
+      targetStocksSymbols.find((item) => item.symbol === symbol) !== undefined
+    );
   }
 }

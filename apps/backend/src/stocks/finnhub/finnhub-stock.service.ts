@@ -70,4 +70,10 @@ export class FinnhubStockService extends IStockPriceProviderService {
       });
     }
   }
+
+  hasStock(symbol: string): boolean {
+    return (
+      targetStocksSymbols.find((item) => item.symbol === symbol) !== undefined
+    );
+  }
 }
