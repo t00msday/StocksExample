@@ -1,6 +1,6 @@
-import { StockID } from '@stocksexample/shared/dist/StockID';
+import { StockId } from '@stocksexample/shared';
 
-export const targetStocksSymbols: Array<StockID> = [
+export const targetStocksSymbols: Array<StockId> = [
   { symbol: 'MSFT', name: 'Microsoft' },
   { symbol: 'AAPL', name: 'Apple' },
   { symbol: 'NVDA', name: 'NVIDIA' },
