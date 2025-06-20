@@ -13,13 +13,16 @@ run `docker-compose up -d`
 # Project Outline
 
 - set up as npm workspace
-- libs/shared: shared DTOs betwwen frontend end backend
+- libs/shared: shared DTOs between frontend end backend
 - apps/frontend: angular frontend
 - apps/backend: nest.js backend
 
 # Docker Setup
 - Base docker image in project root
 - individual images for frontend and backend in their respective directories
+
+# Mocking in Backend
+- the backend can be started using a mock-stock provider using `start:dev_mock` to provide randomized data sets
 
 
 # ADR
