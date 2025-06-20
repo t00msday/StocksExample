@@ -5,5 +5,4 @@ export interface FinnhubMarketStatusDto {
   session: string;
   timezone: string;
   t: number;
-
 }
