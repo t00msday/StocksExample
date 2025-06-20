@@ -35,7 +35,7 @@ export class StockService {
     this.watchedSymbols.add(symbol);
   }
 
-  unwatchStock(symbol:string): void{
+  unwatchStock(symbol:string) {
     this.watchedSymbols.delete(symbol);
   }
 
