@@ -1,7 +1,11 @@
 <div>
   <div>Average Stock Prices</div>
- <app-stock-chart
-   [stockData]="(averageData | async)!"
-   chartTitle="Current Stock Prices, updated once per Minute"
- ></app-stock-chart>
+  @if(stockService.marketStatus$|async){
+  <app-stock-chart
+    [stockData]="(averageData | async)!"
+    chartTitle="Current Stock Prices, updated once per Minute"
+  ></app-stock-chart>
+  }@else{
+  <h2>Currently markets are closed, no data available</h2>
+  }
 </div>

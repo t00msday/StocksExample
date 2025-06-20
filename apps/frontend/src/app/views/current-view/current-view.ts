@@ -19,7 +19,7 @@ export class CurrentView {
     currentData$: Observable<Array<IChartDataSet>>;
 
 
-    constructor(private stockService:StockService) {
+    constructor(protected stockService:StockService) {
       this.currentData$ = this.stockService.stockHistories$
         .pipe(
           map((stockPriceDTOs)=>  stockPriceDTOs

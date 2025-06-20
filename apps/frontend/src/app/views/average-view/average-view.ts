@@ -15,7 +15,7 @@ import {AsyncPipe} from '@angular/common';
 export class AverageView {
   averageData: Observable<Array<IChartDataSet>>;
 
-  constructor(stockService: StockService) {
+  constructor(protected stockService: StockService) {
     this.averageData = stockService.stockHistories$.pipe(
       map((stockPriceHistories) =>
         stockPriceHistories.map((stockPriceHistory) => {
