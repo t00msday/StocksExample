@@ -10,10 +10,21 @@ run `docker-compose up -d`
 - Frontend at localhost:8080
 - Backend/SwaggerUI at localhost:3000/api
 
+# Project Outline
+
+- set up as npm workspace
+- libs/shared: shared DTOs betwwen frontend end backend
+- apps/frontend: angular frontend
+- apps/backend: nest.js backend
+
+# Docker Setup
+- Base docker image in project root
+- individual images for frontend and backend in their respective directories
+
 
 # ADR
 
-## Use Websockets with Finnhub API
+## Use REST with Finnhub API
 
 ### Status
 Accepted
