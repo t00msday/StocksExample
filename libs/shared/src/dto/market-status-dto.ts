@@ -1,3 +1,3 @@
 export interface MarketStatusDto {
-    marketOpen:boolean;
+  marketOpen: boolean;
 }

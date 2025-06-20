@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Observer, ReplaySubject, timer, pipe, from, filter} from 'rxjs';
-import {MarketStatusDto, StockPriceHistoryDTO} from '@stocksexample/shared';
+import {MarketStatusDto, StockPriceHistoryDto} from '@stocksexample/shared';
 import {StockAvailabilityDto} from '@stocksexample/shared';
 import {StockId} from '@stocksexample/shared';
 
@@ -16,7 +16,7 @@ export class StockService {
   private marketStatus$$= new ReplaySubject<boolean>(1);
   marketStatus$= this.marketStatus$$.asObservable();
 
-  private stockHistories= new ReplaySubject<StockPriceHistoryDTO[]>(1);
+  private stockHistories= new ReplaySubject<StockPriceHistoryDto[]>(1);
   stockHistories$= this.stockHistories.asObservable();
 
   private trackedSymbols$$= new ReplaySubject<StockId[]>(1);
@@ -52,8 +52,8 @@ export class StockService {
 
   }
 
-  private getStockPrice(symbols: string[]): Observable<StockPriceHistoryDTO[]> {
-      return this.http.get<StockPriceHistoryDTO[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
+  private getStockPrice(symbols: string[]): Observable<StockPriceHistoryDto[]> {
+      return this.http.get<StockPriceHistoryDto[]>(`${baseURL}stockPrices?symbols=${symbols.toString()}`);
   }
 
   isWatched(symbol: string) {

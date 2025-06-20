@@ -1,4 +1,4 @@
 export interface StockPricePoint {
-    price:number;
-    timestamp:number;
+  price: number;
+  timestamp: number;
 }

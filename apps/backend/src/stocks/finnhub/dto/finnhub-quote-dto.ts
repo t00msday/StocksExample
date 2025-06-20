@@ -1,4 +1,4 @@
-export interface FinnhubQuoteDTO {
+export interface FinnhubQuoteDto {
   c: number; //  Current price
 
   d: number; // Change

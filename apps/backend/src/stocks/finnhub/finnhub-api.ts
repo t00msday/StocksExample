@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { map } from 'rxjs';
-import { FinnhubQuoteDTO } from './dto/finnhub-quote-dto';
+import { FinnhubQuoteDto } from './dto/finnhub-quote-dto';
 
 const baseUrl = 'https://finnhub.io/api/v1/';
 
@@ -14,7 +14,7 @@ export class FinnhubApi {
 
   quoteForStock(symbol: string) {
     return this.apiRequest(`quote?symbol=${symbol}`).pipe(
-      map((response: AxiosResponse<FinnhubQuoteDTO>) => {
+      map((response: AxiosResponse<FinnhubQuoteDto>) => {
         return response.data;
       }),
     );
