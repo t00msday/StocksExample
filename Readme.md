@@ -41,8 +41,8 @@ Only use the Rest interface.
 
 ### Consequences
 - Polling the REST interface at intervals is necessary to keep price info up to date
-- Only one interface has to be implemented (REST is needed for market status)
-- No calculations are necessary to calculate the actual current price
+- Only one interface has to be implemented (REST is needed anyway for market status)
+- No calculations are necessary to retrieve the actual current price
 
 ## Provide collections of values via rest
 
