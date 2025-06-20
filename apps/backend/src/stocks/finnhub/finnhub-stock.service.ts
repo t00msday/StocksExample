@@ -4,8 +4,8 @@ import { targetStocksSymbols } from '../stock-config';
 import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { FinnhubApi } from './finnhub-api';
 import { IStockPriceProviderService } from '../i-stock-price-provider-service';
-import { StockID } from '@stocksexample/shared/dist/StockID';
-import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
+import { StockId } from '@stocksexample/shared';
+import { StockPricePoint } from '@stocksexample/shared';
 import { ConfigService } from '@nestjs/config';
 
 const UPDATE_INTERVAL_MS: number = 30 * 1000;
@@ -32,7 +32,7 @@ export class FinnhubStockService extends IStockPriceProviderService {
     setInterval(() => this.updateMarketData(), UPDATE_INTERVAL_MS);
   }
 
-  getAvailableStocks(): Array<StockID> {
+  getAvailableStocks(): Array<StockId> {
     return targetStocksSymbols;
   }
 

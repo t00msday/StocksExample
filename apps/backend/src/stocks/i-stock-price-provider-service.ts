@@ -1,8 +1,8 @@
-import { StockID } from '@stocksexample/shared/dist/StockID';
-import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
+import { StockId } from '@stocksexample/shared';
+import { StockPricePoint } from '@stocksexample/shared';
 
 export abstract class IStockPriceProviderService {
-  abstract getAvailableStocks(): Array<StockID>;
+  abstract getAvailableStocks(): Array<StockId>;
   abstract hasStock(symbol: string): boolean;
   abstract getCurrentStockPrice(symbol: string): StockPricePoint[];
   abstract getMarketStatus(): boolean;
