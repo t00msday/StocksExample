@@ -5,7 +5,7 @@ import { targetStocksSymbols } from './stock-config';
 import { IStockPriceProviderService } from './i-stock-price-provider-service';
 import {
   StockAvailabilityDto,
-  StockPriceHistoryDTO,
+  StockPriceHistoryDto,
 } from '@stocksexample/shared';
 import { HttpException } from '@nestjs/common';
 
@@ -36,7 +36,7 @@ describe('StockPriceController', () => {
     it('should return a list prices with the requested names in it when using names from config', () => {
       const stockName = targetStocksSymbols[0];
 
-      expect<StockPriceHistoryDTO[]>(
+      expect<StockPriceHistoryDto[]>(
         controller.getStockprices([stockName.symbol]),
       ).toEqual(
         expect.arrayContaining([
