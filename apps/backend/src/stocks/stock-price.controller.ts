@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { IStockPriceProviderService } from './i-stock-price-provider-service';
 import { StockAvailabilityDto } from '@stocksexample/shared';
-import { StockPriceHistoryDTO } from '@stocksexample/shared';
+import { StockPriceHistoryDto } from '@stocksexample/shared';
 import { MarketStatusDto } from '@stocksexample/shared';
 
 @Controller('stocks')
@@ -28,8 +28,8 @@ export class StockPriceController {
   getStockprices(
     @Query('symbols', new ParseArrayPipe({ items: String, separator: ',' }))
     symbols: string[],
-  ): StockPriceHistoryDTO[] {
-    const priceUpdates = new Array<StockPriceHistoryDTO>();
+  ): StockPriceHistoryDto[] {
+    const priceUpdates = new Array<StockPriceHistoryDto>();
     if (!symbols.every((item) => this.stockPriceProvider.hasStock(item)))
       throw new HttpException(
         'Stock Information not available',
