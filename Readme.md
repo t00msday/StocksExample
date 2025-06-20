@@ -1,6 +1,7 @@
 # StocksExample
 
 Retrieving selected stock prices via nest.js backend and displaying in angular frontend
+Data is taken via ReST from Finnhub
 
 # Setup & Run
 replace `FINNHUB_API_KEY: "YOURKEYHERE"` in docker-compose.yml with proper API-Key
@@ -11,7 +12,6 @@ run `docker-compose up -d`
 - Backend/SwaggerUI at localhost:3000/api
 
 # Project Outline
-
 - set up as npm workspace
 - libs/shared: shared DTOs between frontend end backend
 - apps/frontend: angular frontend
@@ -20,6 +20,9 @@ run `docker-compose up -d`
 # Docker Setup
 - Base docker image in project root
 - individual images for frontend and backend in their respective directories
+
+# Stock Configuration
+- the stocks provided can be configured using the stocks/stock-config.ts in the backend
 
 # Mocking in Backend
 - the backend can be started using a mock-stock provider using `start:dev_mock` to provide randomized data sets
