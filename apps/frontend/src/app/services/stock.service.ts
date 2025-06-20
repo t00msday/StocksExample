@@ -47,6 +47,10 @@ export class StockService {
     this.watchedSymbols.delete(symbol);
   }
 
+  isWatched(symbol: string) {
+    this.watchedSymbols.has(symbol);
+  }
+
   private updateAvailableSymbols() {
     this.http
       .get<StockAvailabilityDto>(`${BASE_URL}availableStocks`)
@@ -71,16 +75,11 @@ export class StockService {
     );
   }
 
-  isWatched(symbol: string) {
-    this.watchedSymbols.has(symbol);
-  }
-
   private updateMarketStatus() {
     this.http
       .get<MarketStatusDto>(`${BASE_URL}marketStatus`)
       .subscribe((marketStatus) => {
         this.marketStatus$$.next(marketStatus.marketOpen);
-        console.log(marketStatus)
       });
   }
 }
