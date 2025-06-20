@@ -2,8 +2,8 @@
 
 Retrieving selected stock prices via nest.js backend and displaying in angular frontend
 Data is taken via REST from Finnhub. 
-Data is retrieved from us stock excahnges, so live data will only 
-be available during us markets business hours.
+Data is retrieved from us stock exchanges, so live data will only 
+be available during us stock markets business hours.
 
 # Setup & Run
 replace `FINNHUB_API_KEY: "YOURKEYHERE"` in docker-compose.yml with proper API-Key
