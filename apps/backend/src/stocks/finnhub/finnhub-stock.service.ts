@@ -9,6 +9,7 @@ import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
 import { ConfigService } from '@nestjs/config';
 
 const UPDATE_INTERVAL_MS: number = 30000;
+const MAX_ITEMS_STORED: number = 60;
 
 @Injectable()
 export class FinnhubStockService extends IStockPriceProviderService {
@@ -64,9 +65,13 @@ export class FinnhubStockService extends IStockPriceProviderService {
     for (const stock of targetStocksSymbols) {
       const timestamp = Date.now(); // same time stamp for all stocks to allow for comparison
       this.finnhubAPI.quoteForStock(stock.symbol).subscribe((value) => {
-        this.stockPricePerSymbol
-          .get(stock.symbol)
-          ?.push({ price: value.c, timestamp: timestamp });
+        const storedPrices = this.stockPricePerSymbol.get(stock.symbol);
+        if (storedPrices) {
+          storedPrices.push({ price: value.c, timestamp: timestamp });
+          if (storedPrices.length > MAX_ITEMS_STORED) {
+            storedPrices.shift();
+          }
+        }
       });
     }
   }
