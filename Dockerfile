@@ -5,10 +5,13 @@ WORKDIR /usr/src/app
 
 COPY  package*.json ./
 COPY  tsconfig.base.json ./
-COPY  libs libs
+COPY  libs ./libs
 
 RUN npm install
 
-WORKDIR /usr/src/app/libs
+WORKDIR /usr/src/app/libs/shared
 
 RUN npm install
+
+RUN ["npm", "run", "build"]
+
