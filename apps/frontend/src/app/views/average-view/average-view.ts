@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { IChartDataSet } from '../../widgets/stock-chart/chart-data-set';
 import { StockService } from '../../services/stock.service';
 import { StockPricePoint } from '@stocksexample/shared';
-import {AsyncPipe} from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-average-view',
@@ -35,28 +35,35 @@ export class AverageView {
   }
 
   private calculate15MinAverage(prices: StockPricePoint[]) {
-    const maxTimeGap = 15*60*1000; //15 min max allowed gap
+    const maxTimeGap = 15 * 60 * 1000; //15 min max allowed gap
 
-    if(prices.length === 0) {
+    if (prices.length === 0) {
       return prices;
     }
 
     const averagedPrices: StockPricePoint[] = [];
-    let sumOfPrices=0;
+    let sumOfPrices = 0;
     let numOfPricesSummedUp = 0;
-    let startDateOfSum= prices[0].timestamp;
+    let startDateOfSum = prices[0].timestamp;
     for (const price of prices) {
-      if(price.timestamp - maxTimeGap > startDateOfSum) { // more time passed than gap
-        averagedPrices.push({price:sumOfPrices/numOfPricesSummedUp, timestamp:startDateOfSum});
-        sumOfPrices=price.price;
-        numOfPricesSummedUp=1;
-        startDateOfSum= price.timestamp;
-      }else{
-        sumOfPrices+=price.price;
+      if (price.timestamp - maxTimeGap > startDateOfSum) {
+        // more time passed than gap
+        averagedPrices.push({
+          price: sumOfPrices / numOfPricesSummedUp,
+          timestamp: startDateOfSum,
+        });
+        sumOfPrices = price.price;
+        numOfPricesSummedUp = 1;
+        startDateOfSum = price.timestamp;
+      } else {
+        sumOfPrices += price.price;
         numOfPricesSummedUp++;
       }
     }
-    averagedPrices.push({price:sumOfPrices/numOfPricesSummedUp, timestamp:startDateOfSum});
+    averagedPrices.push({
+      price: sumOfPrices / numOfPricesSummedUp,
+      timestamp: startDateOfSum,
+    });
 
     return averagedPrices;
   }
