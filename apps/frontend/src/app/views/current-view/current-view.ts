@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StockChart } from '../../widgets/stock-chart/stock-chart';
 import { StockService } from '../../services/stock.service';
 import { IChartDataSet } from '../../widgets/stock-chart/chart-data-set';
@@ -12,9 +12,11 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './current-view.sass',
 })
 export class CurrentView {
-  currentData$: Observable<Array<IChartDataSet>>;
+  protected stockService = inject(StockService);
 
-  constructor(protected stockService: StockService) {
+  currentData$: Observable<IChartDataSet[]>;
+
+  constructor() {
     this.currentData$ = this.stockService.stockHistories$.pipe(
       map((stockPriceDTOs) =>
         stockPriceDTOs.map((stockPriceDTO) => ({

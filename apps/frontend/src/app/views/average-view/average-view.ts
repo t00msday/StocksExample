@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { StockChart } from '../../widgets/stock-chart/stock-chart';
 import { map, Observable } from 'rxjs';
 import { IChartDataSet } from '../../widgets/stock-chart/chart-data-set';
@@ -13,9 +13,13 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './average-view.sass',
 })
 export class AverageView {
-  averageData: Observable<Array<IChartDataSet>>;
+  protected stockService = inject(StockService);
 
-  constructor(protected stockService: StockService) {
+  averageData: Observable<IChartDataSet[]>;
+
+  constructor() {
+    const stockService = this.stockService;
+
     this.averageData = stockService.stockHistories$.pipe(
       map((stockPriceHistories) =>
         stockPriceHistories.map((stockPriceHistory) => {

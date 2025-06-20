@@ -1,6 +1,6 @@
 <mat-card
   class="marketStatus"
-  [class.marketStatus--closed]="!(stockService.marketStatus$|async)"
+  [class.marketStatus--closed]="(stockService.marketStatus$|async) === false"
   [class.marketStatus--open]="(stockService.marketStatus$|async)"
 >
   US Markets are currently:

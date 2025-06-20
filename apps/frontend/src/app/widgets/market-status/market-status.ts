@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {StockService} from '../../services/stock.service';
 import {AsyncPipe} from '@angular/common';
@@ -13,9 +13,6 @@ import {AsyncPipe} from '@angular/common';
   styleUrl: './market-status.sass'
 })
 export class MarketStatus {
-
-  constructor(protected stockService:StockService) {
-
-  }
+  protected stockService = inject(StockService);
 
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { MarketStatusDto, StockPriceHistoryDto } from '@stocksexample/shared';
@@ -13,6 +13,8 @@ const UPDATE_INTERVAL_STOCK_QUOTES = 60 * 1000;
   providedIn: 'root',
 })
 export class StockService {
+  private http = inject(HttpClient);
+
   private marketStatus$$ = new ReplaySubject<boolean>(1);
   marketStatus$ = this.marketStatus$$.asObservable();
 
@@ -22,9 +24,9 @@ export class StockService {
   private trackedSymbols$$ = new ReplaySubject<StockId[]>(1);
   availableSymbols$ = this.trackedSymbols$$.asObservable();
 
-  private watchedSymbols: Set<string> = new Set();
+  private watchedSymbols: Set<string> = new Set<string>();
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.updateAvailableSymbols();
     setInterval(
       () => this.updateStockPricesContinuously(),

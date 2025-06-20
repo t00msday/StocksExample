@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {StockService} from '../../services/stock.service';
 import {AsyncPipe} from '@angular/common';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -15,10 +15,8 @@ import {MatCard} from '@angular/material/card';
   styleUrl: './stock-selector.sass'
 })
 export class StockSelector {
+  protected stockService = inject(StockService);
 
-  constructor(protected stockService:StockService) {
-
-  }
 
   watchSymbol(shouldWatch: boolean, symbol: string) {
 

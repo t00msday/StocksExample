@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import {RouterTestingModule} from '@angular/router/testing';
 import {RouterModule} from '@angular/router';
 import {CurrentView} from './views/current-view/current-view';
 import {provideHttpClient} from '@angular/common/http';

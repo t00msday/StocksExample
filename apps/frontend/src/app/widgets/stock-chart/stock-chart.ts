@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import {IChartDataSet} from './chart-data-set';
-import {ChartOptions, ChartType} from 'chart.js';
+import { ChartType} from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import {de} from 'date-fns/locale';
 
@@ -14,17 +14,17 @@ import {de} from 'date-fns/locale';
 })
 export class StockChart {
 
-  private _stockData:Array<IChartDataSet>= new Array<IChartDataSet>();
+  private _stockData:IChartDataSet[]= new Array<IChartDataSet>();
 
-  @Input() chartTitle:string = 'StockChart';
+  @Input() chartTitle = 'StockChart';
 
   @Input()
-  get stockData():Array<IChartDataSet> {return this._stockData;}
-  set stockData(value:Array<IChartDataSet>) {
+  get stockData():IChartDataSet[] {return this._stockData;}
+  set stockData(value:IChartDataSet[]) {
     this._stockData = value;
 
     if(this._stockData === null) {
-      this._stockData = new Array<IChartDataSet>();
+      this._stockData = [];
       return
     }
     const datasetValue = this._stockData.map((item:IChartDataSet, index) => ({label: item.label, data: item.data.map(pricepoint => pricepoint.price), yAxisID: `y${index}`}))
