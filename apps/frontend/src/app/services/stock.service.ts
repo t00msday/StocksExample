@@ -29,8 +29,9 @@ export class StockService {
   constructor() {
     this.updateAvailableSymbols();
     this.updateMarketStatus();
+    this.updateStockPrices()
     setInterval(
-      () => this.updateStockPricesContinuously(),
+      () => this.updateStockPrices(),
       UPDATE_INTERVAL_STOCK_QUOTES,
     ); //update stock prices every minute
     setInterval(
@@ -41,6 +42,7 @@ export class StockService {
 
   watchStock(symbol: string) {
     this.watchedSymbols.add(symbol);
+    this.updateStockPrices(); // update stock prices immediately for quicker response
   }
 
   unwatchStock(symbol: string) {
@@ -59,7 +61,7 @@ export class StockService {
       );
   }
 
-  private updateStockPricesContinuously() {
+  private updateStockPrices() {
     if (this.watchedSymbols.size > 0) {
       this.getStockPrice(Array.from(this.watchedSymbols.values())).subscribe(
         (stockPrice) => {
