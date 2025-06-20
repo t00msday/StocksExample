@@ -28,6 +28,7 @@ export class StockService {
 
   constructor() {
     this.updateAvailableSymbols();
+    this.updateMarketStatus();
     setInterval(
       () => this.updateStockPricesContinuously(),
       UPDATE_INTERVAL_STOCK_QUOTES,
@@ -79,6 +80,7 @@ export class StockService {
       .get<MarketStatusDto>(`${BASE_URL}marketStatus`)
       .subscribe((marketStatus) => {
         this.marketStatus$$.next(marketStatus.marketOpen);
+        console.log(marketStatus)
       });
   }
 }
