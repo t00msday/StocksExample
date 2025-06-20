@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  Observable,
-  ReplaySubject,
-} from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { MarketStatusDto, StockPriceHistoryDto } from '@stocksexample/shared';
 import { StockAvailabilityDto } from '@stocksexample/shared';
 import { StockId } from '@stocksexample/shared';
 
-const baseURL = 'http://127.0.0.1:3000/stocks/';
+const BASE_URL = 'http://127.0.0.1:3000/stocks/';
+const UPDATE_INTERVAL_MARKET_STATUS_MS = 15 * 60 * 1000;
+const UPDATE_INTERVAL_STOCK_QUOTES = 60 * 1000;
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +26,14 @@ export class StockService {
 
   constructor(private http: HttpClient) {
     this.updateAvailableSymbols();
-    setInterval(() => this.updateStockPricesContinuously(), 60 * 1000); //update stock prices every minute
-    setInterval(() => this.updateMarketStatus(), 15 * 60 * 1000); // updated marketStatus every 15 minutes
+    setInterval(
+      () => this.updateStockPricesContinuously(),
+      UPDATE_INTERVAL_STOCK_QUOTES,
+    ); //update stock prices every minute
+    setInterval(
+      () => this.updateMarketStatus(),
+      UPDATE_INTERVAL_MARKET_STATUS_MS,
+    ); // updated marketStatus every 15 minutes
   }
 
   watchStock(symbol: string) {
@@ -41,7 +46,7 @@ export class StockService {
 
   private updateAvailableSymbols() {
     this.http
-      .get<StockAvailabilityDto>(`${baseURL}availableStocks`)
+      .get<StockAvailabilityDto>(`${BASE_URL}availableStocks`)
       .subscribe((availableStockDTO) =>
         this.trackedSymbols$$.next(availableStockDTO.stocks),
       );
@@ -59,7 +64,7 @@ export class StockService {
 
   private getStockPrice(symbols: string[]): Observable<StockPriceHistoryDto[]> {
     return this.http.get<StockPriceHistoryDto[]>(
-      `${baseURL}stockPrices?symbols=${symbols.toString()}`,
+      `${BASE_URL}stockPrices?symbols=${symbols.toString()}`,
     );
   }
 
@@ -69,7 +74,7 @@ export class StockService {
 
   private updateMarketStatus() {
     this.http
-      .get<MarketStatusDto>(`${baseURL}marketStatus`)
+      .get<MarketStatusDto>(`${BASE_URL}marketStatus`)
       .subscribe((marketStatus) => {
         this.marketStatus$$.next(marketStatus.marketOpen);
       });
