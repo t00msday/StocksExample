@@ -18,7 +18,6 @@ export class CurrentView {
 
   constructor() {
     this.currentData$ = this.stockService.stockHistories$.pipe(
-      tap(value => console.log('processing your stock histories', value)),
       map((stockPriceDTOs) =>
         stockPriceDTOs.map((stockPriceDTO) => ({
           data: stockPriceDTO.prices,

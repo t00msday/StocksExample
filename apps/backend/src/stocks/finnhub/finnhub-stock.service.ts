@@ -56,7 +56,6 @@ export class FinnhubStockService extends IStockPriceProviderService {
 
   private updateMarketStatus() {
     this.finnhubAPI.marketsOpen().subscribe((value: FinnhubMarketStatusDto) => {
-      console.log(value);
       this.marketsOpen = value.isOpen;
     });
   }
