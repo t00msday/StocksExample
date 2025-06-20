@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StockSelector } from './stock-selector';
+import {provideHttpClient} from '@angular/common/http';
 
 describe('StockSelector', () => {
   let component: StockSelector;
@@ -8,7 +9,8 @@ describe('StockSelector', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StockSelector]
+      imports: [StockSelector],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AverageView } from './average-view';
+import {provideHttpClient} from '@angular/common/http';
 
 describe('AverageView', () => {
   let component: AverageView;
@@ -8,7 +9,8 @@ describe('AverageView', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AverageView]
+      imports: [AverageView],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 
