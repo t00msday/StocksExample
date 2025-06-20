@@ -1,12 +1,11 @@
 services:
   base:
     image: stocksexample_base
-    build:
-      context: .
+    build: .
   frontend:
     image: stocksexample_frontend
     build:
-      context: apps/frontend
+      context: ./apps/frontend
       additional_contexts:
         stocksexample_base: "service:base"
     ports:
@@ -14,7 +13,7 @@ services:
   backend:
     image: stocksexample_backend
     build:
-      context: apps/backend
+      context: ./apps/backend
       additional_contexts:
         stocksexample_base: "service:base"
     ports:
