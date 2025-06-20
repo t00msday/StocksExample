@@ -8,7 +8,7 @@ import { StockID } from '@stocksexample/shared/dist/StockID';
 import { StockPricePoint } from '@stocksexample/shared/dist/StockPricePoint';
 import { ConfigService } from '@nestjs/config';
 
-const UPDATE_INTERVAL_MS: number = 30 * 1000;
+const UPDATE_INTERVAL_MS: number = 30 * 1000; 
 const MAX_ITEMS_STORED: number = (60 * 60 * 1000) / UPDATE_INTERVAL_MS; // store enough entries for one hour
 
 @Injectable()

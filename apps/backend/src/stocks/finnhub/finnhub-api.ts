@@ -4,7 +4,7 @@ import { FinnhubMarketStatusDto } from './dto/finnhub-market-status-dto';
 import { map } from 'rxjs';
 import { FinnhubQuoteDto } from './dto/finnhub-quote-dto';
 
-const baseUrl = 'https://finnhub.io/api/v1/';
+const BASE_URL = 'https://finnhub.io/api/v1/';
 
 export class FinnhubApi {
   constructor(
@@ -29,7 +29,7 @@ export class FinnhubApi {
   }
 
   private apiRequest(endpoint: string) {
-    return this.httpService.get(`${baseUrl}${endpoint}`, {
+    return this.httpService.get(`${BASE_URL}${endpoint}`, {
       headers: { 'X-Finnhub-Token': `${this.token}` },
     });
   }
