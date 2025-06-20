@@ -47,6 +47,7 @@ export class StockService {
 
   unwatchStock(symbol: string) {
     this.watchedSymbols.delete(symbol);
+    this.updateStockPrices(); // update stock prices immediately for quicker response
   }
 
   isWatched(symbol: string) {
