@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { StockChart } from '../../widgets/stock-chart/stock-chart';
 import { StockService } from '../../services/stock.service';
 import { IChartDataSet } from '../../widgets/stock-chart/chart-data-set';
-import { Observable, map } from 'rxjs';
+import {Observable, map, tap} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
@@ -18,6 +18,7 @@ export class CurrentView {
 
   constructor() {
     this.currentData$ = this.stockService.stockHistories$.pipe(
+      tap(value => console.log('processing your stock histories', value)),
       map((stockPriceDTOs) =>
         stockPriceDTOs.map((stockPriceDTO) => ({
           data: stockPriceDTO.prices,

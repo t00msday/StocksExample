@@ -22,13 +22,13 @@ export class AverageView {
 
     this.averageData = stockService.stockHistories$.pipe(
       map((stockPriceHistories) =>
-        stockPriceHistories.map((stockPriceHistory) => {
-          stockPriceHistory.prices = this.calculate15MinAverage(
+        stockPriceHistories.map((stockPriceHistory) => ({
+          prices: this.calculate15MinAverage(
             stockPriceHistory.prices,
-          );
-          return stockPriceHistory;
+          ),
+          symbol:stockPriceHistory.symbol
         }),
-      ),
+      )),
       map((stockPriceHistories) =>
         stockPriceHistories.map((stockPriceHistory) => ({
           data: stockPriceHistory.prices,
@@ -39,7 +39,7 @@ export class AverageView {
   }
 
   private calculate15MinAverage(prices: StockPricePoint[]) {
-    const maxTimeGap = 15 * 60 * 1000; //15 min max allowed gap
+    const maxTimeGap = 15 * 60 * 1000; //15 max allowed gap
 
     if (prices.length === 0) {
       return prices;

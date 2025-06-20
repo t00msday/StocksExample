@@ -124,6 +124,5 @@ export class StockChart {
       labels: this.stockData.at(0)!.data.map((pp) => new Date(pp.timestamp)),
       datasets: datasetValue,
     };
-    console.log("updated charts data")
   }
 }
