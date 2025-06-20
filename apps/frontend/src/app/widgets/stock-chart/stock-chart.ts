@@ -10,7 +10,7 @@ import {de} from 'date-fns/locale';
   selector: 'app-stock-chart',
   imports: [BaseChartDirective],
   templateUrl: './stock-chart.html',
-  styleUrl: './stockchart.sass'
+  styleUrl: './stock-chart.sass'
 })
 export class StockChart {
 
